@@ -1,0 +1,36 @@
+<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="mt-4">
+
+    <!-- Name Input -->
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" [(ngModel)]="name" name="name" required class="form-control" id="name" placeholder="Enter name">
+    </div>
+    <!-- Email Input -->
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" [(ngModel)]="email" name="email" #emailCtrl="ngModel" class="form-control" id="email" placeholder="Enter email" required>
+        <div *ngIf="!emailIsValid() && (emailCtrl.dirty || emailCtrl.touched)" class="text-danger mt-2">
+            Invalid email format.
+        </div>
+        <div *ngIf="emailCtrl.errors?.['required']" class="text-danger mt-2">
+            Email is required.
+        </div>
+    </div>
+
+    <!-- Phone Input -->
+    <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" [(ngModel)]="phone" name="phone" #phoneCtrl="ngModel" class="form-control" id="phone" placeholder="Enter phone number" required>
+        <div *ngIf="!phoneIsValid() && (phoneCtrl.dirty || phoneCtrl.touched)" class="text-danger mt-2">
+            Phone should be 11 digits or in 5-5 format.
+        </div>
+        <div *ngIf="phoneCtrl.errors?.['required']" class="text-danger mt-2">
+            Phone is required.
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+        <button type="submit" [disabled]="!contactForm.form.valid" class="btn btn-primary">Add/Update</button>
+    </div>
+</form>
